@@ -1,11 +1,11 @@
 package main;
 
-public class CadastraLivros implements Comparable<CadastraLivros>{
+public class CadastraLivros implements Comparable<CadastraLivros> {
     private String nome;
     private String autor;
-    private int dataPubli;
+    private int ano;
     private String status;
-    private int prioridade;
+    private String posicao;
 
     public String getNome() {
         return nome;
@@ -15,16 +15,16 @@ public class CadastraLivros implements Comparable<CadastraLivros>{
         return autor;
     }
 
-    public int getDataPubli() {
-        return dataPubli;
+    public int getAno() {
+        return ano;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public int getPrioridade() {
-        return prioridade;
+    public String getPosicao() {
+        return posicao;
     }
 
     public void setNome(String nome) {
@@ -35,34 +35,24 @@ public class CadastraLivros implements Comparable<CadastraLivros>{
         this.autor = autor;
     }
 
-    public void setDataPubli(int dataPubli) {
-        this.dataPubli = dataPubli;
+    public void setAno(int ano) {
+        this.ano = ano;
     }
 
     public void setStatus(String status) {
         this.status = status;
     }
 
-    public void setPrioridade(int prioridade) {
-        this.prioridade = prioridade;
+    public void setPosicao(String posicao) {
+        this.posicao = posicao;
     }
     
     @Override
     public String toString(){
-        return "Titulo: " + getNome() + "\n" + "Autor: " + getAutor() + "\n" + "Ano: " + getDataPubli() + "\n" + "Prioridade: " + getPrioridade() + "\n";
+        return "Titulo: " + getNome() + "\n" + "Autor: " + getAutor() + "\n" + "Ano: " + getAno() + "\n" + "Posição: " + getPosicao() + "\n";
     }
     
-    public int compareTo(CadastraLivros outroCadastro){
+    public int compareTo(CadastraLivros outroCadastro) {
       return this.getNome().compareTo(outroCadastro.getNome());
-    }
-    
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CadastraLivros outroCadastro = (CadastraLivros) o;
-
-        return this.nome != null ? (outroCadastro.nome).equals(this.nome) : outroCadastro.nome == null;
     }
 }

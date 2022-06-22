@@ -14,11 +14,7 @@ public class FormSistema extends javax.swing.JFrame {
 
     Comparator<CadastraLivros> compareTempo
             = (CadastraLivros l1, CadastraLivros l2)
-            -> l1.getDataPubli() - l2.getDataPubli();
-
-    Comparator<CadastraLivros> comparePrioridade
-            = (CadastraLivros c1, CadastraLivros c2)
-            -> c1.getPrioridade() - c2.getPrioridade();
+            -> l1.getAno() - l2.getAno();
 
     public FormSistema() {
         initComponents();
@@ -42,7 +38,7 @@ public class FormSistema extends javax.swing.JFrame {
         txtAutor = new javax.swing.JTextField();
         txtAno = new javax.swing.JTextField();
         txtStatus = new javax.swing.JTextField();
-        txtPrioridade = new javax.swing.JTextField();
+        txtPosicao = new javax.swing.JTextField();
         nome = new javax.swing.JLabel();
         autor = new javax.swing.JLabel();
         ano = new javax.swing.JLabel();
@@ -66,7 +62,6 @@ public class FormSistema extends javax.swing.JFrame {
         btnNome = new javax.swing.JButton();
         btnData = new javax.swing.JButton();
         btnFinalizado = new javax.swing.JButton();
-        btnPrioridade = new javax.swing.JButton();
         btnRemover = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
@@ -90,6 +85,7 @@ public class FormSistema extends javax.swing.JFrame {
         getContentPane().add(txtPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 90, 260, 40));
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/botao buscar.png"))); // NOI18N
+        btnBuscar.setBorder(null);
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -135,9 +131,9 @@ public class FormSistema extends javax.swing.JFrame {
         txtStatus.setBorder(null);
         getContentPane().add(txtStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 510, 160, 50));
 
-        txtPrioridade.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
-        txtPrioridade.setBorder(null);
-        getContentPane().add(txtPrioridade, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 590, 160, 50));
+        txtPosicao.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        txtPosicao.setBorder(null);
+        getContentPane().add(txtPosicao, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 590, 160, 50));
 
         nome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/botao nome.png"))); // NOI18N
         getContentPane().add(nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 210, 70));
@@ -258,17 +254,9 @@ public class FormSistema extends javax.swing.JFrame {
         });
         getContentPane().add(btnFinalizado, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 650, 150, -1));
 
-        btnPrioridade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/botao ordenar por autor.png"))); // NOI18N
-        btnPrioridade.setBorder(null);
-        btnPrioridade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrioridadeActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnPrioridade, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 650, -1, -1));
-
         btnRemover.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/botao remover.png"))); // NOI18N
+        btnRemover.setBorder(null);
         btnRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoverActionPerformed(evt);
@@ -284,33 +272,29 @@ public class FormSistema extends javax.swing.JFrame {
 
     void addLivro(CadastraLivros c) {
         if (txtStatus.getText().equalsIgnoreCase("Tenho")) {
-            if (Integer.parseInt(txtPrioridade.getText()) <= listaTenho.size()) {
-                listaTenho.add(Integer.parseInt(txtPrioridade.getText()), c);
-            } else {
+            if(txtPosicao.getText().equals(""))
                 listaTenho.add(c);
-            }
-            listaLivros.add(c);
+            else
+                listaTenho.add(Integer.parseInt(txtPosicao.getText()),c);
+                listaLivros.add(c);
         } else if (txtStatus.getText().equalsIgnoreCase("Lidos")) {
-            if (Integer.parseInt(txtPrioridade.getText()) <= listaLidos.size()) {
-                listaLidos.add(Integer.parseInt(txtPrioridade.getText()), c);
-            } else {
+            if(txtPosicao.getText().equals(""))
                 listaLidos.add(c);
-            }
-            listaLivros.add(c);
+            else
+                listaLidos.add(Integer.parseInt(txtPosicao.getText()),c);
+                listaLivros.add(c);
         } else if (txtStatus.getText().equalsIgnoreCase("Lendo")) {
-            if (Integer.parseInt(txtPrioridade.getText()) <= listaLendo.size()) {
-                listaLendo.add(Integer.parseInt(txtPrioridade.getText()), c);
-            } else {
+            if(txtPosicao.getText().equals(""))
                 listaLendo.add(c);
-            }
-            listaLivros.add(c);
+            else
+                listaLendo.add(Integer.parseInt(txtPosicao.getText()),c);
+                listaLivros.add(c);
         } else if (txtStatus.getText().equalsIgnoreCase("Desejados")) {
-            if (Integer.parseInt(txtPrioridade.getText()) <= listaDesejo.size()) {
-                listaDesejo.add(Integer.parseInt(txtPrioridade.getText()), c);
-            } else {
+            if(txtPosicao.getText().equals(""))
                 listaDesejo.add(c);
-            }
-            listaLivros.add(c);
+            else
+                listaDesejo.add(Integer.parseInt(txtPosicao.getText()),c);
+                listaLivros.add(c);
         } else {
             JOptionPane.showMessageDialog(null, "Opção Invalida!");
         }
@@ -321,9 +305,9 @@ public class FormSistema extends javax.swing.JFrame {
 
         c.setNome(txtNome.getText());
         c.setAutor(txtAutor.getText());
-        c.setDataPubli(Integer.parseInt(txtAno.getText()));
+        c.setAno(Integer.parseInt(txtAno.getText()));
         c.setStatus(txtStatus.getText());
-        c.setPrioridade(Integer.parseInt(txtPrioridade.getText()));
+        c.setPosicao(txtPosicao.getText());
 
         addLivro(c);
         mostra();
@@ -339,7 +323,6 @@ public class FormSistema extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Livro " + txtPesquisa1.getText() + " movido para lista 'Lidos'. ");
                 cl = listaLendo.remove(aux);
                 listaLidos.add(cl);
-                //            cl.setStatus("Lidos");
                 mostra();
                 encontrou = true;
             }
@@ -359,11 +342,6 @@ public class FormSistema extends javax.swing.JFrame {
         mostra();
     }//GEN-LAST:event_btnDataActionPerformed
 
-    private void btnPrioridadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrioridadeActionPerformed
-        listaDesejo.sort(comparePrioridade);
-        mostra();
-    }//GEN-LAST:event_btnPrioridadeActionPerformed
-
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         boolean encontrou = false;
         for (CadastraLivros c : listaLivros) {
@@ -382,19 +360,20 @@ public class FormSistema extends javax.swing.JFrame {
         mostra();
         limpaCampos();
     }//GEN-LAST:event_btnRemoverActionPerformed
+    
     void removeLivro() {
         boolean encontrou = false;
         for (CadastraLivros c : listaLivros) {
             if (c.getNome().equalsIgnoreCase(txtNome.getText()) && c.getStatus().equalsIgnoreCase(txtStatus.getText())) {
                 JOptionPane.showMessageDialog(null, "Livro " + txtNome.getText() + " da lista " + txtStatus.getText() + " foi removido. ");
                 if (txtStatus.getText().equalsIgnoreCase("Tenho")) {
-                    listaLendo.remove(c);
-                    encontrou = true;
-                } else if (txtStatus.getText().equalsIgnoreCase("Lidos")) {
                     listaTenho.remove(c);
                     encontrou = true;
-                } else if (txtStatus.getText().equalsIgnoreCase("Lendo")) {
+                } else if (txtStatus.getText().equalsIgnoreCase("Lidos")) {
                     listaLidos.remove(c);
+                    encontrou = true;
+                } else if (txtStatus.getText().equalsIgnoreCase("Lendo")) {
+                    listaLendo.remove(c);
                     encontrou = true;
                 } else if (txtStatus.getText().equalsIgnoreCase("Desejados")) {
                     listaDesejo.remove(c);
@@ -444,7 +423,7 @@ public class FormSistema extends javax.swing.JFrame {
         txtAutor.setText("");
         txtAno.setText("");
         txtStatus.setText("");
-        txtPrioridade.setText("");
+        txtPosicao.setText("");
     }
 
     public static void main(String args[]) {
@@ -466,7 +445,6 @@ public class FormSistema extends javax.swing.JFrame {
     private javax.swing.JButton btnData;
     private javax.swing.JButton btnFinalizado;
     private javax.swing.JButton btnNome;
-    private javax.swing.JButton btnPrioridade;
     private javax.swing.JButton btnRemover;
     private javax.swing.JLabel connected;
     private javax.swing.JLabel desejados;
@@ -496,7 +474,7 @@ public class FormSistema extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPesquisa;
     private javax.swing.JTextField txtPesquisa1;
-    private javax.swing.JTextField txtPrioridade;
+    private javax.swing.JTextField txtPosicao;
     private javax.swing.JTextField txtStatus;
     // End of variables declaration//GEN-END:variables
 }
